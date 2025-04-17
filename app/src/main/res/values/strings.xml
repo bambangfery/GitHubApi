@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GitHubApi</string>
+    <string name="github_image">Gambar User github</string>
 </resources>

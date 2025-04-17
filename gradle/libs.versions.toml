@@ -1,26 +1,57 @@
 [versions]
-agp = "8.8.0"
-kotlin = "1.9.24"
-coreKtx = "1.16.0"
+fragmentKtx = "1.6.2"
+glide = "4.16.0"
+hiltCompiler = "1.0.0"
+hiltNavigationFragment = "1.1.0"
+kotlin = "1.9.0"
+androidGradlePlugin = "8.2.2"
+hilt = "2.50"
+lifecycle = "2.7.0"
+lifecycleRuntimeKtx = "2.7.0"
+retrofit = "2.9.0"
+coroutines = "1.7.3"
+material = "1.11.0"
+appcompat = "1.6.1"
+coreKtx = "1.12.0"
 junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
-appcompat = "1.7.0"
-material = "1.12.0"
-activity = "1.10.1"
-constraintlayout = "2.2.1"
-
-[libraries]
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
-androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+espresso = "3.5.1"
+junitExt = "1.1.5"
+room = "2.6.1"
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+daggerHilt = { id = "dagger.hilt.android.plugin" }
 
+[libraries]
+androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompiler" }
+androidx-hilt-navigation-fragment = { module = "androidx.hilt:hilt-navigation-fragment", version.ref = "hiltNavigationFragment" }
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+activity-ktx = { module = "androidx.activity:activity-ktx", version = "ktx" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
+
+lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
+
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+
+room-runtime = {module = "androidx.room:room-runtime", version.ref = "room"}
+room-compiler = {module = "androidx.room:room-compiler", version.ref = "room"}
+room-ktx = {module = "androidx.room:room-ktx", version.ref = "room"}
+
+junit = { module = "junit:junit", version.ref = "junit" }
+junit-ext = { module = "androidx.test.ext:junit", version.ref = "junitExt" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
