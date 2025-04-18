@@ -24,23 +24,16 @@ class DetailUserRepositoryImpl @Inject constructor(
                     val userId = it.id
                     detailUserDao.insertDetail(it.toEntity())
                     if (it.public_repos > 0){
-                        val respRepo = api.getUserRepos(username)
-                        if (respRepo.isSuccessful && respRepo.body() != null) {
-                            val repo = respRepo.body()?.map { it.toEntity() } ?: emptyList()
-                            repoUserDao.insertAll(repo)
-                            Result.success(userId)
-                        } else {
-                            Result.failure(Exception("API error ${respRepo.code()}"))
-                        }
+                        fetchRepoUser(userId,username)
                     } else {
                         Result.success(userId)
                     }
                 } ?: Result.failure(Exception("Empty Body"))
             } else {
-                Result.failure(Exception("API error ${respDetail.code()}"))
+                fallbackToLocalUser(username)
             }
         } catch (e: Exception) {
-            Result.failure(Exception(e.message ?: "Unknown error"))
+            fallbackToLocalUser(username)
         }
     }
 
@@ -54,4 +47,40 @@ class DetailUserRepositoryImpl @Inject constructor(
         return result.map { it.toDomain() }
     }
 
+    private suspend fun fetchRepoUser(userId: Int, username: String): Result<Int>{
+        try {
+            val respRepo = api.getUserRepos(username)
+            if (respRepo.isSuccessful && respRepo.body() != null) {
+                val repo = respRepo.body()?.map { it.toEntity() } ?: emptyList()
+                repoUserDao.insertAll(repo)
+                return Result.success(userId)
+            } else {
+                return fallbackToLocalRepo(userId)
+            }
+        } catch (e: Exception){
+            return fallbackToLocalRepo(userId)
+        }
+    }
+
+    private suspend fun fallbackToLocalUser(username: String): Result<Int> {
+        val detail = detailUserDao.getDetailbyLogin(username)
+        return if (detail != null) {
+            if (detail.publicRepos > 0){
+                fetchRepoUser(detail.id,username)
+            } else {
+                Result.success(detail.id)
+            }
+        } else {
+            Result.failure(Exception("No local data available"))
+        }
+    }
+
+    private suspend fun fallbackToLocalRepo(userId: Int): Result<Int> {
+        val result = repoUserDao.getRepos(userId)
+        return if (result != null) {
+            Result.success(userId)
+        } else {
+            Result.failure(Exception("No local data available"))
+        }
+    }
 }

@@ -24,8 +24,8 @@ class GitHubUserViewModel @Inject constructor(
     private val _filteredUsers = MutableStateFlow<List<GitHubUser>>(emptyList())
     val filteredUserList: StateFlow<List<GitHubUser>> = _filteredUsers
 
-    private val _error = MutableLiveData<String?>()
-    val error: LiveData<String?> = _error
+    private val _error = MutableStateFlow<String?>(null)
+    val error: StateFlow<String?> = _error
 
     private var isLoading = false
     private var lastSince: Int = 0

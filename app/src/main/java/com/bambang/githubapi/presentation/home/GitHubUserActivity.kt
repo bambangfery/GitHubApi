@@ -3,6 +3,7 @@ package com.bambang.githubapi.presentation.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -61,6 +62,14 @@ class GitHubUserActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.userList.collectLatest { list ->
                 adapter.submitList(list.toList())
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.error.collectLatest { message ->
+                message?.let {
+                    Toast.makeText(this@GitHubUserActivity, it, Toast.LENGTH_LONG).show()
+                }
             }
         }
 

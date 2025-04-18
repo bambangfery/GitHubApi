@@ -13,4 +13,7 @@ interface DetailUserDao {
 
     @Query("SELECT * FROM user_detail WHERE id = :userId")
     suspend fun getDetail(userId: Int): DetailUserEntity?
+
+    @Query("SELECT * FROM user_detail WHERE login = :username")
+    suspend fun getDetailbyLogin(username: String): DetailUserEntity?
 }
