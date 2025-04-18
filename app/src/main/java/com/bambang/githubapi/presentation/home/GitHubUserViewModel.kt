@@ -1,7 +1,5 @@
 package com.bambang.githubapi.presentation.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bambang.githubapi.domain.model.GitHubUser
@@ -18,7 +16,7 @@ class GitHubUserViewModel @Inject constructor(
     private val getGitHubUserUseCase: GetGitHubUserUseCase
 ) : ViewModel() {
 
-    private val _userList = MutableStateFlow<List<GitHubUser>>(emptyList())
+    val _userList = MutableStateFlow<List<GitHubUser>>(emptyList())
     val userList: StateFlow<List<GitHubUser>> = _userList
 
     private val _filteredUsers = MutableStateFlow<List<GitHubUser>>(emptyList())
