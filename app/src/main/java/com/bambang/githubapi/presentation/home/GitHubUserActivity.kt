@@ -1,5 +1,6 @@
 package com.bambang.githubapi.presentation.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -9,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bambang.githubapi.databinding.ActivityGitHubUserBinding
+import com.bambang.githubapi.presentation.detail.DetailUserActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,7 +27,9 @@ class GitHubUserActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val adapter = ListUserAdapter { selectedUser ->
-
+            val intent = Intent(this, DetailUserActivity::class.java)
+            intent.putExtra("name", selectedUser.login)
+            startActivity(intent)
         }
 
         binding.rvUsers.layoutManager = LinearLayoutManager(this)

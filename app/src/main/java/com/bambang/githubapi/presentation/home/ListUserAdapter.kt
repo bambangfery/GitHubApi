@@ -11,22 +11,22 @@ import com.bumptech.glide.Glide
 
 class ListUserAdapter(
     private val onClick: (GitHubUser) -> Unit
-) : ListAdapter<GitHubUser, ListUserAdapter.PokemonViewHolder>(DiffCallback()) {
+) : ListAdapter<GitHubUser, ListUserAdapter.ListUserViewHolder>(DiffCallback()) {
 
-    inner class PokemonViewHolder(private val binding: ItemListUserBinding) :
+    inner class ListUserViewHolder(private val binding: ItemListUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(pokemon: GitHubUser) {
-            binding.tvUserGithub.text = pokemon.login.replaceFirstChar { it.uppercaseChar()}
-            Glide.with(binding.imgUserGithub.context).load(pokemon.avatarUrl).into(binding.imgUserGithub)
+        fun bind(user: GitHubUser) {
+            binding.tvUserGithub.text = user.login.replaceFirstChar { it.uppercaseChar()}
+            Glide.with(binding.imgUserGithub.context).load(user.avatarUrl).into(binding.imgUserGithub)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListUserViewHolder {
         val binding = ItemListUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PokemonViewHolder(binding)
+        return ListUserViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ListUserViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
         holder.itemView.setOnClickListener {
