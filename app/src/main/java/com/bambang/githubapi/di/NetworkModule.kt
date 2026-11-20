@@ -1,5 +1,6 @@
 package com.bambang.githubapi.di
 
+import com.bambang.githubapi.data.network.NetworkConnectionInterceptor
 import com.bambang.githubapi.data.network.RateLimitInterceptor
 import com.bambang.githubapi.data.remote.api.GitHubApiService
 import dagger.Module
@@ -20,8 +21,11 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(
+        networkConnectionInterceptor: NetworkConnectionInterceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(networkConnectionInterceptor)
             .addInterceptor(RateLimitInterceptor())
             .build()
     }
